@@ -150,8 +150,7 @@ async def remove_coin_handler(message: Message, state: FSMContext):
     lang = db.user_language(user_id)
     coin = message.text.lower()
 
-    db.cursor.execute("DELETE FROM favorites WHERE user_id = ? AND coin_symbol = ?", (user_id, coin))
-    db.connection.commit()
+    db.delete_favorite(user_id, coin)
 
     await message.answer("Удалено из избранного." if lang == "ru" else "Removed from favorites.")
     await state.clear()

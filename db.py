@@ -65,3 +65,9 @@ class DataBase:
                 "SELECT coin_symbol FROM favorites WHERE user_id = ?",
                 (user_id,)
             ).fetchall()
+
+    def delete_favorite(self, user_id, coin):
+        with self.connection:
+            self.cursor.execute(
+                "DELETE FROM favorites WHERE user_id = ? AND coin_symbol = ?", (user_id, coin)
+            )
